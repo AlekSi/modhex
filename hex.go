@@ -4,10 +4,12 @@
 
 // Package modhex implements hexadecimal encoding and decoding using modhex alphabet.
 //
-// It is a fork of the encoding/hex package from the Go standard library.
-//
 // See https://developers.yubico.com/OTP/Modhex_Converter.html and
 // https://developers.yubico.com/yubico-c/Manuals/modhex.1.html
+//
+// It is a fork of the encoding/hex package from the Go standard library.
+// Dump and Dumper functions were removed as they are mostly used for debugging,
+// and debugging in modhex alphabet is not useful.
 package modhex
 
 import (
