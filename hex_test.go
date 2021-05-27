@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package hex
+package modhex
 
 import (
 	"bytes"
@@ -41,7 +41,7 @@ func TestEncode(t *testing.T) {
 }
 
 func TestDecode(t *testing.T) {
-	// Case for decoding uppercase hex characters, since
+	// Case for decoding uppercase modhex characters, since
 	// Encode always uses lowercase.
 	decTests := append(encDecTests, encDecTest{"VJVKVLVNVRVTVUVV", []byte{0xf8, 0xf9, 0xfa, 0xfb, 0xfc, 0xfd, 0xfe, 0xff}})
 	for i, test := range decTests {
