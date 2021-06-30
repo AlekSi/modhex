@@ -2,14 +2,14 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package modhex implements hexadecimal encoding and decoding using modhex alphabet.
+// Package modhex implements hexadecimal encoding and decoding using ModHex alphabet.
 //
 // See https://developers.yubico.com/OTP/Modhex_Converter.html and
 // https://developers.yubico.com/yubico-c/Manuals/modhex.1.html
 //
 // It is a fork of the encoding/hex package from the Go standard library.
 // Dump and Dumper functions were removed as they are mostly used for debugging,
-// and debugging in modhex alphabet is not useful.
+// and debugging in ModHex alphabet is not useful.
 package modhex
 
 import (
@@ -28,7 +28,7 @@ func EncodedLen(n int) int { return n * 2 }
 // Encode encodes src into EncodedLen(len(src))
 // bytes of dst. As a convenience, it returns the number
 // of bytes written to dst, but this value is always EncodedLen(len(src)).
-// Encode implements modhex encoding.
+// Encode implements ModHex encoding.
 func Encode(dst, src []byte) int {
 	j := 0
 	for _, v := range src {
@@ -44,7 +44,7 @@ func Encode(dst, src []byte) int {
 // The stream-based Decoder returns io.ErrUnexpectedEOF instead of ErrLength.
 var ErrLength = errors.New("modhex: odd length modhex string")
 
-// InvalidByteError values describe errors resulting from an invalid byte in a modhex string.
+// InvalidByteError values describe errors resulting from an invalid byte in a ModHex string.
 type InvalidByteError byte
 
 func (e InvalidByteError) Error() string {
@@ -58,7 +58,7 @@ func DecodedLen(x int) int { return x / 2 }
 // Decode decodes src into DecodedLen(len(src)) bytes,
 // returning the actual number of bytes written to dst.
 //
-// Decode expects that src contains only modhex
+// Decode expects that src contains only ModHex
 // characters and that src has even length.
 // If the input is malformed, Decode returns the number
 // of bytes decoded before the error.
@@ -87,7 +87,7 @@ func Decode(dst, src []byte) (int, error) {
 	return i, nil
 }
 
-// fromHexChar converts a modhex character into its value and a success flag.
+// fromHexChar converts a ModHex character into its value and a success flag.
 func fromHexChar(c byte) (byte, bool) {
 	switch c {
 	case 'c', 'C':
@@ -127,16 +127,16 @@ func fromHexChar(c byte) (byte, bool) {
 	return 0, false
 }
 
-// EncodeToString returns the modhex encoding of src.
+// EncodeToString returns the ModHex encoding of src.
 func EncodeToString(src []byte) string {
 	dst := make([]byte, EncodedLen(len(src)))
 	Encode(dst, src)
 	return string(dst)
 }
 
-// DecodeString returns the bytes represented by the modhex string s.
+// DecodeString returns the bytes represented by the ModHex string s.
 //
-// DecodeString expects that src contains only modhex
+// DecodeString expects that src contains only ModHex
 // characters and that src has even length.
 // If the input is malformed, DecodeString returns
 // the bytes decoded before the error.
@@ -148,7 +148,7 @@ func DecodeString(s string) ([]byte, error) {
 	return src[:n], err
 }
 
-// bufferSize is the number of modhex characters to buffer in encoder and decoder.
+// bufferSize is the number of ModHex characters to buffer in encoder and decoder.
 const bufferSize = 1024
 
 type encoder struct {
@@ -157,7 +157,7 @@ type encoder struct {
 	out [bufferSize]byte // output buffer
 }
 
-// NewEncoder returns an io.Writer that writes lowercase modhex characters to w.
+// NewEncoder returns an io.Writer that writes lowercase ModHex characters to w.
 func NewEncoder(w io.Writer) io.Writer {
 	return &encoder{w: w}
 }
@@ -185,8 +185,8 @@ type decoder struct {
 	arr [bufferSize]byte // backing array for in
 }
 
-// NewDecoder returns an io.Reader that decodes modhex characters from r.
-// NewDecoder expects that r contain only an even number of modhex characters.
+// NewDecoder returns an io.Reader that decodes ModHex characters from r.
+// NewDecoder expects that r contain only an even number of ModHex characters.
 func NewDecoder(r io.Reader) io.Reader {
 	return &decoder{r: r}
 }
